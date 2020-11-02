@@ -50,7 +50,5 @@ def main():    # hub all functions
 
 
 
-
-
 if __name__ == '__main__':    # point of enter
     main()
