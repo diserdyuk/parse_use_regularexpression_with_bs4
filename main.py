@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import csv
+import re
 
 
 # methods BeautifulSoup
@@ -17,11 +18,21 @@ import csv
 # .find_previous_sibling()
 
 
-def get_specialist(t):    # func.for filter text
+def get_specialist(t):    # func.filter out text
     whois = t.find('div', id='whois').text.strip()
     if 'Copywriter' in whois:
         return t
     return None
+
+
+def get_salary(t):
+    # salary: 2700 usd per month
+    pattern = r'\d{1,9}'    # r = row, '\d' any number, {1,9} sarch from 1 to 9
+
+    # salary = re.findall(pattern, t)[0]    # where search, when search; get list    
+    salary2 = re.search(pattern, t).group()    # 2nd variant
+    print(salary2)
+    
 
 
 def main():    # hub all functions
@@ -37,17 +48,25 @@ def main():    # hub all functions
     # person2 = soup.find('div', text='Alena').find_parent(class_='row')
 
 
-    # filter for tags
-    copywriters = soup.find_all('div', class_='row')    # parse all div's with class row      
+    # filter out text
+    # copywriters = soup.find_all('div', class_='row')    # parse all div's with class row      
 
-    copywriter = []    # list for write copywriters
-    for i in copywriters:
-        copywr = get_specialist(i)
-        if copywr:
-            copywriter.append(copywr)
+    # copywriter = []
+    # for i in copywriters:
+    #     copywr = get_specialist(i)
+    #     if copywr:
+    #         copywriter.append(copywr)    
 
-    print(copywriter)   
+    # print(copywriter)   
 
+
+    # use regular expressions
+    salary = soup.find_all('div', {'data-set':'salary'})
+
+    for i in salary:
+        get_salary(i.text)
+
+     
 
 
 if __name__ == '__main__':    # point of enter
