@@ -29,7 +29,7 @@ def get_salary(t):
     # salary: 2700 usd per month
     pattern = r'\d{1,9}'    # r = row, '\d' any number, {1,9} sarch from 1 to 9
 
-    # salary = re.findall(pattern, t)[0]    # where search, when search; get list    
+    # salary1 = re.findall(pattern, t)[0]    # where search, when search; get list    
     salary2 = re.search(pattern, t).group()    # 2nd variant
     print(salary2)
     
@@ -61,12 +61,16 @@ def main():    # hub all functions
 
 
     # use regular expressions
-    salary = soup.find_all('div', {'data-set':'salary'})
 
+    # var 1    
+    # salary = soup.find_all('div', {'data-set':'salary'})
+    # for i in salary:
+    #     get_salary(i.text)
+
+    # var 2
+    salary = soup.find_all('div', text=re.compile('\d{1,9}'))
     for i in salary:
-        get_salary(i.text)
-
-     
+        print(i.text) 
 
 
 if __name__ == '__main__':    # point of enter
