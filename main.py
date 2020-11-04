@@ -34,7 +34,6 @@ def get_salary(t):
     print(salary2)
     
 
-
 def main():    # hub all functions
     file = open('index.html').read()    # open file for read html code
 
@@ -68,9 +67,10 @@ def main():    # hub all functions
     #     get_salary(i.text)
 
     # var 2
-    salary = soup.find_all('div', text=re.compile('\d{1,9}'))
+    salary = soup.find_all('div', text=re.compile('\d{1,9}'))    # get all text with numbers from 1 to 9
     for i in salary:
         print(i.text) 
+
 
 
 if __name__ == '__main__':    # point of enter
